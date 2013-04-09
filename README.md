@@ -27,3 +27,9 @@ To test chat, which purposely resides in its own directory to excercise CORS
 
         apps/chat.html
 
+* To test the bad word filter
+
+        Enter any message with ".NET" and it will be replaced with "***" :)
+
+
+

@@ -8,7 +8,6 @@ import com.example.helloworld.core.User;
 import com.example.helloworld.db.PersonDAO;
 import com.example.helloworld.health.TemplateHealthCheck;
 import com.example.helloworld.resources.*;
-import com.example.helloworld.resources.atmosphere.ChatResource;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.assets.AssetsBundle;
 import com.yammer.dropwizard.auth.basic.BasicAuthProvider;
@@ -60,6 +59,8 @@ public class HelloWorldService extends Service<HelloWorldConfiguration> {
         AtmosphereServlet atmosphereServlet = new AtmosphereServlet();
         atmosphereServlet.framework().addInitParameter("com.sun.jersey.config.property.packages", "com.example.helloworld.resources.atmosphere");
         atmosphereServlet.framework().addInitParameter("org.atmosphere.websocket.messageContentType", "application/json");
+        atmosphereServlet.framework().addInitParameter("org.atmosphere.cpr.broadcastFilterClasses", "com.example.helloworld.filters.BadWordFilter");
+
         environment.addServlet(atmosphereServlet, "/chat/*");
 
         final PersonDAO dao = new PersonDAO(hibernateBundle.getSessionFactory());
