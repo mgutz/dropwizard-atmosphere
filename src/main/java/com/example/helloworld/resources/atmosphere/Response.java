@@ -1,4 +1,4 @@
-package com.example.helloworld.resources;
+package com.example.helloworld.resources.atmosphere;
 
 /**
  * Created with IntelliJ IDEA.

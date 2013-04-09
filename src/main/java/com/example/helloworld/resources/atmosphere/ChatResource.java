@@ -1,7 +1,5 @@
 package com.example.helloworld.resources.atmosphere;
 
-import com.example.helloworld.resources.Message;
-import com.example.helloworld.resources.Response;
 import org.atmosphere.annotation.Broadcast;
 import org.atmosphere.annotation.Suspend;
 

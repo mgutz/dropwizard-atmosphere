@@ -19,7 +19,7 @@ To test the example application run the following commands.
 
 *   To run the server run.
 
-        java -jar target/dropwizard-example-0.3.0-SNAPSHOT.jar server example.yml
+        java -jar target/dropwizard-example-0.6.2.jar server example.yml
 
 To test chat, which purposely resides in its own directory to excercise CORS
 
