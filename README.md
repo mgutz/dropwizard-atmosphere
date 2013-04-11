@@ -25,11 +25,8 @@ To test chat, which purposely resides in its own directory to excercise CORS
 
 *   Browse the file
 
-        apps/chat.html
+        app/chat.html
 
-* To test the bad word filter
-
-        Enter any message with ".NET" and it will be replaced with "***" :)
-
+* To test the bad word filter, enter any message with ".NET" and it will be replaced with "***" :)
 
 

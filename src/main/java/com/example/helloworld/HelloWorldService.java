@@ -49,10 +49,7 @@ public class HelloWorldService extends Service<HelloWorldConfiguration> {
         bootstrap.addBundle(new ViewBundle());
     }
 
-    @Override
-    public void run(HelloWorldConfiguration configuration,
-                    Environment environment) throws ClassNotFoundException {
-
+    void initializeAtmosphere(HelloWorldConfiguration configuration, Environment environment) {
         FilterBuilder fconfig = environment.addFilter(CrossOriginFilter.class, "/chat");
         fconfig.setInitParam(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");
 
@@ -60,13 +57,16 @@ public class HelloWorldService extends Service<HelloWorldConfiguration> {
         atmosphereServlet.framework().addInitParameter("com.sun.jersey.config.property.packages", "com.example.helloworld.resources.atmosphere");
         atmosphereServlet.framework().addInitParameter("org.atmosphere.websocket.messageContentType", "application/json");
         atmosphereServlet.framework().addInitParameter("org.atmosphere.cpr.broadcastFilterClasses", "com.example.helloworld.filters.BadWordFilter");
-
         environment.addServlet(atmosphereServlet, "/chat/*");
+    }
+
+    @Override
+    public void run(HelloWorldConfiguration configuration,
+                    Environment environment) throws ClassNotFoundException {
 
         final PersonDAO dao = new PersonDAO(hibernateBundle.getSessionFactory());
 
-        environment.addProvider(new BasicAuthProvider<User>(new ExampleAuthenticator(),
-                                                            "SUPER SECRET STUFF"));
+        environment.addProvider(new BasicAuthProvider<User>(new ExampleAuthenticator(), "SUPER SECRET STUFF"));
 
         final Template template = configuration.buildTemplate();
 
@@ -74,9 +74,9 @@ public class HelloWorldService extends Service<HelloWorldConfiguration> {
         environment.addResource(new HelloWorldResource(template));
         environment.addResource(new ViewResource());
         environment.addResource(new ProtectedResource());
-        //environment.addResource(new ChatResource());
-
         environment.addResource(new PeopleResource(dao));
         environment.addResource(new PersonResource(dao));
+
+        initializeAtmosphere(configuration, environment);
     }
 }
